@@ -1,6 +1,11 @@
 import { $ } from "bun";
 
-import { checkCloc, MAAT_LINES } from "./utils";
+import {
+  checkCloc,
+  getIgnoreDirs,
+  hasExistingClocignore,
+  MAAT_LINES,
+} from "./utils";
 
 export const extractLinesCount = async (
   gitFolder: string,
@@ -12,10 +17,19 @@ export const extractLinesCount = async (
     );
 
     await checkCloc();
+    const exists = await hasExistingClocignore();
 
-    await $`cloc . --by-file --csv --quiet --exclude-dir="node_modules" --report-file="${reportFolder}/${MAAT_LINES}"`.cwd(
-      gitFolder
-    );
+    if (exists) {
+      const ignoreDirs = await getIgnoreDirs();
+
+      await $`cloc . --by-file --csv --quiet --exclude-dir=${ignoreDirs} --report-file="${reportFolder}/${MAAT_LINES}"`.cwd(
+        gitFolder
+      );
+    } else {
+      await $`cloc . --by-file --csv --quiet --report-file="${reportFolder}/${MAAT_LINES}"`.cwd(
+        gitFolder
+      );
+    }
 
     console.log("\t→ Lines count extracted\n");
   } catch (error) {
