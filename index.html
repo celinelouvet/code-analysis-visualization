@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
   <head>
     <title>Visualization</title>
@@ -43,19 +43,11 @@
       }
 
       .label {
-        font:
-          14px 'Helvetica Neue',
-          Helvetica,
-          Arial,
-          sans-serif;
+        font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
         text-anchor: middle;
         fill: black;
         font-weight: 600;
-        text-shadow:
-          0 1px 0 #fff,
-          1px 0 0 #fff,
-          -1px 0 0 #fff,
-          0 -1px 0 #fff;
+        text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
       }
 
       .label,
@@ -67,16 +59,31 @@
   </head>
   <body>
     <div class="legend">
+      <p style="margin-bottom: 2em">
+        <strong>Rapport utilisé:</strong> <span id="report__folder"></span>
+      </p>
       <p>La taille des cercles correspond à la quantité de code associée.</p>
       <p>La couleur indique le nombre de modifications</p>
     </div>
     <div id="graph"></div>
     <script src="d3/d3.min.js"></script>
     <script>
-      var graphContainer = document.getElementById('graph');
+      var params = new URLSearchParams(window.location.search);
+      var reportFolder = params.get("report");
+
+      if (!reportFolder) {
+        window.alert(
+          "No report folder provided, please provide a report folder in path"
+        );
+      }
+      var reportFolderContainer = document.getElementById("report__folder");
+      reportFolderContainer.innerText = reportFolder;
+
+      var reportFile = `${reportFolder}/report.json`;
+
+      var graphContainer = document.getElementById("graph");
       var maxHeight = graphContainer.clientHeight;
       var maxWidth = graphContainer.clientWidth;
-
       var translateX = maxWidth / 4;
 
       var margin = 10,
@@ -90,7 +97,7 @@
       var color = d3.scale
         .linear()
         .domain([-1, 5])
-        .range(['hsl(185,60%,99%)', 'hsl(187,40%,70%)'])
+        .range(["hsl(185,60%,99%)", "hsl(187,40%,70%)"])
         .interpolate(d3.interpolateHcl);
 
       var pack = d3.layout
@@ -102,72 +109,72 @@
         });
 
       var svg = d3
-        .select('#graph')
-        .append('svg')
-        .attr('width', maxWidth)
-        .attr('height', maxHeight)
-        .attr('viewBox', `0 0 ${maxWidth} ${maxHeight}`)
-        .append('g')
-        .attr('transform', 'translate(' + translateX + ',' + margin + ')');
+        .select("#graph")
+        .append("svg")
+        .attr("width", maxWidth)
+        .attr("height", maxHeight)
+        .attr("viewBox", `0 0 ${maxWidth} ${maxHeight}`)
+        .append("g")
+        .attr("transform", `translate(${translateX}, ${margin})`);
 
-      d3.json('report.json', function (error, root) {
+      d3.json(reportFile, function (error, root) {
         var focus = root,
           nodes = pack.nodes(root);
 
         svg
-          .append('g')
-          .selectAll('circle')
+          .append("g")
+          .selectAll("circle")
           .data(nodes)
           .enter()
-          .append('circle')
-          .attr('class', function (d) {
+          .append("circle")
+          .attr("class", function (d) {
             return d.parent
               ? d.children
-                ? 'node'
-                : 'node node--leaf'
-              : 'node node--root';
+                ? "node"
+                : "node node--leaf"
+              : "node node--root";
           })
-          .attr('transform', function (d) {
-            return 'translate(' + d.x + ',' + d.y + ')';
+          .attr("transform", function (d) {
+            return "translate(" + d.x + "," + d.y + ")";
           })
-          .attr('r', function (d) {
+          .attr("r", function (d) {
             return d.r;
           })
-          .style('fill', function (d) {
+          .style("fill", function (d) {
             return d.weight > 0.0
-              ? 'darkred'
+              ? "darkred"
               : d.children
-                ? color(d.depth)
-                : 'WhiteSmoke';
+              ? color(d.depth)
+              : "WhiteSmoke";
           })
-          .style('fill-opacity', function (d) {
+          .style("fill-opacity", function (d) {
             return d.weight;
           })
-          .on('click', function (d) {
+          .on("click", function (d) {
             return zoom(focus == d ? root : d);
           });
 
         svg
-          .append('g')
-          .selectAll('text')
+          .append("g")
+          .selectAll("text")
           .data(nodes)
           .enter()
-          .append('text')
-          .attr('class', 'label')
-          .attr('transform', function (d) {
-            return 'translate(' + d.x + ',' + d.y + ')';
+          .append("text")
+          .attr("class", "label")
+          .attr("transform", function (d) {
+            return "translate(" + d.x + "," + d.y + ")";
           })
-          .style('fill-opacity', function (d) {
+          .style("fill-opacity", function (d) {
             return d.parent === root ? 1 : 0;
           })
-          .style('display', function (d) {
-            return d.parent === root ? null : 'none';
+          .style("display", function (d) {
+            return d.parent === root ? null : "none";
           })
           .text(function (d) {
             return d.name;
           });
 
-        d3.select(window).on('click', function () {
+        d3.select(window).on("click", function () {
           zoom(root);
         });
 
@@ -181,35 +188,35 @@
           d3.event.stopPropagation();
 
           var transition = d3
-            .selectAll('text,circle')
+            .selectAll("text,circle")
             .transition()
             .duration(d3.event.altKey ? 7500 : 750)
-            .attr('transform', function (d) {
-              return 'translate(' + x(d.x) + ',' + y(d.y) + ')';
+            .attr("transform", function (d) {
+              return "translate(" + x(d.x) + "," + y(d.y) + ")";
             });
 
-          transition.filter('circle').attr('r', function (d) {
+          transition.filter("circle").attr("r", function (d) {
             return k * d.r;
           });
 
           transition
-            .filter('text')
+            .filter("text")
             .filter(function (d) {
               return d.parent === focus || d.parent === focus0;
             })
-            .style('fill-opacity', function (d) {
+            .style("fill-opacity", function (d) {
               return d.parent === focus ? 1 : 0;
             })
-            .each('start', function (d) {
-              if (d.parent === focus) this.style.display = 'inline';
+            .each("start", function (d) {
+              if (d.parent === focus) this.style.display = "inline";
             })
-            .each('end', function (d) {
-              if (d.parent !== focus) this.style.display = 'none';
+            .each("end", function (d) {
+              if (d.parent !== focus) this.style.display = "none";
             });
         }
       });
 
-      d3.select(self.frameElement).style('height', outerDiameter + 'px');
+      d3.select(self.frameElement).style("height", outerDiameter + "px");
     </script>
   </body>
 </html>
