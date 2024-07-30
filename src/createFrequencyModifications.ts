@@ -16,6 +16,8 @@ export const createFrequencyModifications = async (
       reportFolder
     );
     console.log("\t→ Frequency of modifications created\n");
+
+    return MAAT_FREQS;
   } catch (error) {
     console.error(`Couldn't create frequency of modifications`, error);
     throw new Error(`Couldn't create frequency of modifications: ${error}`);

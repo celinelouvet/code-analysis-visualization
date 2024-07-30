@@ -4,6 +4,7 @@ export * from "./clocUtils";
 export * from "./fileNames";
 export * from "./fileUtils";
 export * from "./javaUtils";
+export * from "./pythonUtils";
 
 export const LIB_FOLDER = absolutePath("./lib");
 

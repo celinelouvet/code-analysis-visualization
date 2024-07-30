@@ -32,6 +32,8 @@ export const extractLinesCount = async (
     }
 
     console.log("\t→ Lines count extracted\n");
+
+    return MAAT_LINES;
   } catch (error) {
     console.error(`Couldn't extract lines count`, error);
     throw new Error(`Couldn't extract lines count: ${error}`);
