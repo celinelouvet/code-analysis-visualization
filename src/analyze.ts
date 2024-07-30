@@ -1,4 +1,5 @@
 import { createFrequencyModifications } from "./createFrequencyModifications";
+import { createReport } from "./createReport";
 import { createReportFolder } from "./createReportFolder";
 import { createSummary } from "./createSummary";
 import { extractGitHistory } from "./extractGitHistory";
@@ -20,4 +21,6 @@ export const analyze = async () => {
   const maatLines = await extractLinesCount(gitFolder, reportFolder);
 
   await mergeFrequenciesWithLines(maatFreqs, maatLines, reportFolder);
+
+  await createReport(maatFreqs, maatLines, reportFolder);
 };

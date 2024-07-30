@@ -1,0 +1,30 @@
+import { $ } from "bun";
+
+import { absolutePath, getPythonExec } from "./utils";
+
+const REPORT = "report.json";
+
+export const createReport = async (
+  maatFreqs: string,
+  maatLines: string,
+  reportFolder: string
+) => {
+  try {
+    console.log("Creating report for visualization");
+
+    const python = await getPythonExec();
+
+    const scriptFolder = absolutePath("./scripts");
+
+    await $`${python} ${scriptFolder}/csv_as_enclosure_json.py --structure ${maatLines} --weights ${maatFreqs} --weightcolumn 1 > ${REPORT}`.cwd(
+      reportFolder
+    );
+
+    console.log("\t→ Report created\n");
+
+    return REPORT;
+  } catch (error) {
+    console.error(`Couldn't create report for visualization`, error);
+    throw new Error(`Couldn't create report for visualization: ${error}`);
+  }
+};
