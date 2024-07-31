@@ -1,6 +1,6 @@
 import { $ } from "bun";
 
-import { absolutePath, getPythonExec } from "./utils";
+import { getPythonExec, SCRIPT_FOLDER } from "./utils";
 
 const COMPLEXITY = "complexity.csv";
 
@@ -14,9 +14,7 @@ export const mergeFrequenciesWithLines = async (
 
     const python = await getPythonExec();
 
-    const scriptFolder = absolutePath("./scripts");
-
-    await $`${python} ${scriptFolder}/merge_comp_freqs.py ${maatFreqs} ${maatLines} > ${COMPLEXITY}`.cwd(
+    await $`${python} ${SCRIPT_FOLDER}/merge_comp_freqs.py ${maatFreqs} ${maatLines} > ${COMPLEXITY}`.cwd(
       reportFolder
     );
 

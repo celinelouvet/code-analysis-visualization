@@ -1,6 +1,6 @@
 import { $ } from "bun";
 
-import { absolutePath, getPythonExec } from "./utils";
+import { getPythonExec, SCRIPT_FOLDER } from "./utils";
 
 const REPORT = "report.json";
 
@@ -14,9 +14,7 @@ export const createReport = async (
 
     const python = await getPythonExec();
 
-    const scriptFolder = absolutePath("./scripts");
-
-    await $`${python} ${scriptFolder}/csv_as_enclosure_json.py --structure ${maatLines} --weights ${maatFreqs} --weightcolumn 1 > ${REPORT}`.cwd(
+    await $`${python} ${SCRIPT_FOLDER}/csv_as_enclosure_json.py --structure ${maatLines} --weights ${maatFreqs} --weightcolumn 1 > ${REPORT}`.cwd(
       reportFolder
     );
 

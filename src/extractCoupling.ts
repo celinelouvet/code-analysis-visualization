@@ -1,7 +1,6 @@
 import { $ } from "bun";
-import { checkJava, checkJar } from "./utils";
+import { checkJava, checkJar, MAAT_JAR } from "./utils";
 
-const MAAT_JAR = "../lib/code-maat-1.0.4-standalone.jar";
 const MAAT_COUPLING = "coupling.csv";
 
 export const extractCoupling = async (
