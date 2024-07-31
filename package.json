@@ -1,15 +1,15 @@
 {
   "name": "code-analysis-visualization",
   "module": "run.ts",
-  "type": "module",
-  "scripts": {
-    "dev": "bun --watch run run.ts  --gitFolder='~/Workspace/back-office' --reportFolder='./back-office' --startDate='2022-01-01'",
-    "start": "bun run run.ts  --gitFolder='~/Workspace/back-office' --reportFolder='./back-office' --startDate='2022-01-01'"
-  },
   "devDependencies": {
     "@types/bun": "^1.1.6"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
-  }
+  },
+  "scripts": {
+    "dev": "bun --watch run run.ts --gitFolder='~/Workspace/back-office' --reportFolder='./back-office' --startDate='2022-01-01'",
+    "start": "bun run run.ts --gitFolder='~/Workspace/back-office' --reportFolder='./back-office' --startDate='2022-01-01'"
+  },
+  "type": "module"
 }

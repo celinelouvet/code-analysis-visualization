@@ -2,6 +2,7 @@ import { createFrequencyModifications } from "./createFrequencyModifications";
 import { createReport } from "./createReport";
 import { createReportFolder } from "./createReportFolder";
 import { createSummary } from "./createSummary";
+import { extractCoupling } from "./extractCoupling";
 import { extractGitHistory } from "./extractGitHistory";
 import { extractLinesCount } from "./extractLinesCount";
 import { mergeFrequenciesWithLines } from "./mergeFrequenciesWithLines";
@@ -23,4 +24,6 @@ export const analyze = async () => {
   await mergeFrequenciesWithLines(maatFreqs, maatLines, reportFolder);
 
   await createReport(maatFreqs, maatLines, reportFolder);
+
+  await extractCoupling(maatLog, reportFolder);
 };
