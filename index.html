@@ -59,8 +59,12 @@
   </head>
   <body>
     <div class="legend">
+      <p>
+        <strong>Projet considéré:</strong> <span id="project__folder"></span>
+      </p>
+      <p><strong>Date de début:</strong> <span id="start_date"></span></p>
       <p style="margin-bottom: 2em">
-        <strong>Rapport utilisé:</strong> <span id="report__folder"></span>
+        <strong>Date de fin:</strong> <span id="end_date"></span>
       </p>
       <p>La taille des cercles correspond à la quantité de code associée.</p>
       <p>La couleur indique le nombre de modifications</p>
@@ -69,15 +73,20 @@
     <script src="d3/d3.min.js"></script>
     <script>
       var params = new URLSearchParams(window.location.search);
-      var reportFolder = params.get("report");
+      var projectFolder = params.get("project");
+      var startDate = params.get("startDate");
+      var endDate = params.get("endDate");
 
-      if (!reportFolder) {
-        window.alert(
-          "No report folder provided, please provide a report folder in path"
-        );
-      }
-      var reportFolderContainer = document.getElementById("report__folder");
-      reportFolderContainer.innerText = reportFolder;
+      var reportFolder = `reports/${projectFolder}/${startDate}-${endDate}`;
+
+      var projectFolderContainer = document.getElementById("project__folder");
+      projectFolderContainer.innerText = projectFolder;
+
+      var startDateContainer = document.getElementById("start_date");
+      startDateContainer.innerText = startDate;
+
+      var endDateContainer = document.getElementById("end_date");
+      endDateContainer.innerText = endDate;
 
       var reportFile = `${reportFolder}/report.json`;
 

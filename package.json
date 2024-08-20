@@ -9,7 +9,8 @@
   },
   "scripts": {
     "dev": "bun --watch run run.ts --gitFolder='~/Workspace/back-office' --reportFolder='./back-office' --startDate='2022-01-01'",
-    "start": "bun run run.ts --gitFolder='~/Workspace/back-office' --reportFolder='./back-office' --startDate='2022-01-01'"
+    "start": "bun run run.ts --gitFolder='~/Workspace/back-office' --reportFolder='./back-office' --startDate='2022-01-01'",
+    "analyze-bo": "bun --watch run run.ts --gitFolder='~/Workspace/back-office' --reportFolder='./back-office'"
   },
   "type": "module"
 }
