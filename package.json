@@ -3,6 +3,7 @@
   "module": "src/run.ts",
   "type": "module",
   "scripts": {
+    "dev": "bun --watch run src/run.ts  --gitFolder='~/Workspace/back-office' --reportFolder='./back-office' --startDate='2022-01-01'",
     "start": "bun run src/run.ts  --gitFolder='~/Workspace/back-office' --reportFolder='./back-office' --startDate='2022-01-01'"
   },
   "devDependencies": {

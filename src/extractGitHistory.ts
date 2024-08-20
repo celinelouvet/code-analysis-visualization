@@ -16,6 +16,8 @@ export const extractGitHistory = async ({
       gitFolder
     );
     console.log("\t→ Git history extracted\n");
+
+    return `${reportFolder}/${MAAT_LOG}`;
   } catch (error) {
     console.error(`Couldn't extract git history`, error);
     throw new Error(`Couldn't extract git history: ${error}`);
