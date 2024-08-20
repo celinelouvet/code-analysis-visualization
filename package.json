@@ -1,0 +1,14 @@
+{
+  "name": "code-analysis-visualization",
+  "module": "src/run.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run src/run.ts  --gitFolder='~/Workspace/back-office' --reportFolder='./back-office' --startDate='2022-01-01'"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.6"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
