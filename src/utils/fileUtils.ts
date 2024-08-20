@@ -1,5 +1,8 @@
-import { file } from "bun";
+import { $, file } from "bun";
 import path from "path";
+
+export const createFolder = async (folderPath: string) =>
+  $`mkdir -p ${folderPath}`;
 
 export const doesFileExist = async (filepath: string) => {
   try {
