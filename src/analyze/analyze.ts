@@ -8,22 +8,22 @@ import { extractLinesCount } from "./extractLinesCount.ts";
 import { mergeFrequenciesWithLines } from "./mergeFrequenciesWithLines.ts";
 import { readArguments } from "./readArguments.ts";
 
-export const analyze = async () => {
+export const analyze = () => {
   const givenArguments = readArguments();
 
   const { gitFolder, reportFolder } = givenArguments;
 
-  await createReportFolder(reportFolder);
+  createReportFolder(reportFolder);
 
-  const maatLog = await extractGitHistory(givenArguments);
-  await createSummary(maatLog, reportFolder);
+  const maatLog = extractGitHistory(givenArguments);
+  createSummary(maatLog, reportFolder);
 
-  const maatFreqs = await createFrequencyModifications(maatLog, reportFolder);
-  const maatLines = await extractLinesCount(gitFolder, reportFolder);
+  const maatFreqs = createFrequencyModifications(maatLog, reportFolder);
+  const maatLines = extractLinesCount(gitFolder, reportFolder);
 
-  await mergeFrequenciesWithLines(maatFreqs, maatLines, reportFolder);
+  mergeFrequenciesWithLines(maatFreqs, maatLines, reportFolder);
 
-  await createReport(maatFreqs, maatLines, reportFolder);
+  createReport(maatFreqs, maatLines, reportFolder);
 
-  await extractCoupling(maatLog, reportFolder);
+  extractCoupling(maatLog, reportFolder);
 };

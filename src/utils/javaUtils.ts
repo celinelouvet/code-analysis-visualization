@@ -2,7 +2,7 @@ import shell from "shelljs";
 
 import { doesFileExist } from "./fileUtils.ts";
 
-export const checkJava = async () => {
+export const checkJava = () => {
   try {
     const versions = shell.exec("java -version", { silent: true });
     const version = versions.stderr.toString().split("\n")[0];

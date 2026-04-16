@@ -1,10 +1,10 @@
 import shell from "shelljs";
 
-import { getPythonExec, SCRIPT_FOLDER } from "./utils/index.ts";
+import { getPythonExec, SCRIPT_FOLDER } from "../utils/index.ts";
 
 const REPORT = "report.json";
 
-export const createReport = async (
+export const createReport = (
   maatFreqs: string,
   maatLines: string,
   reportFolder: string,
@@ -12,7 +12,7 @@ export const createReport = async (
   try {
     console.log("Creating report for visualization");
 
-    const python = await getPythonExec();
+    const python = getPythonExec();
 
     shell.exec(
       `${python} ${SCRIPT_FOLDER}/csv_as_enclosure_json.py --structure ${maatLines} --weights ${maatFreqs} --weightcolumn 1 > ${REPORT}`,

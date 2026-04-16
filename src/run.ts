@@ -1,5 +1,4 @@
-import { analyze } from "./analyze.ts";
+import { analyze } from "./analyze/index.ts";
 
-analyze().then(() => {
-  console.log("Analysis completed");
-});
+analyze();
+console.log("Analysis completed");

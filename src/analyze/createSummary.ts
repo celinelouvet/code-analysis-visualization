@@ -1,13 +1,13 @@
 import shell from "shelljs";
 
-import { checkJar, checkJava, MAAT_JAR, MAAT_SUMMARY } from "./utils/index.ts";
+import { checkJar, checkJava, MAAT_JAR, MAAT_SUMMARY } from "../utils/index.ts";
 
-export const createSummary = async (maatLog: string, reportFolder: string) => {
+export const createSummary = (maatLog: string, reportFolder: string) => {
   try {
     console.log(`Creating summary into "${MAAT_SUMMARY}"`);
 
-    await checkJava();
-    await checkJar(MAAT_JAR);
+    checkJava();
+    checkJar(MAAT_JAR);
 
     shell.exec(
       `java -jar ${MAAT_JAR} -c git -l "${maatLog}" -a summary > "${MAAT_SUMMARY}"`,

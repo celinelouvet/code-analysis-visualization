@@ -1,7 +1,7 @@
 import { parseArgs } from "util";
 
-import type { Arguments } from "./types.ts";
-import { absolutePath } from "./utils/index.ts";
+import type { Arguments } from "../types.ts";
+import { absolutePath } from "../utils/index.ts";
 
 export const readArguments = () => {
   try {

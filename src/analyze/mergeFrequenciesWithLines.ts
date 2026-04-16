@@ -1,10 +1,10 @@
 import shell from "shelljs";
 
-import { getPythonExec, SCRIPT_FOLDER } from "./utils/index.ts";
+import { getPythonExec, SCRIPT_FOLDER } from "../utils/index.ts";
 
 const COMPLEXITY = "complexity.csv";
 
-export const mergeFrequenciesWithLines = async (
+export const mergeFrequenciesWithLines = (
   maatFreqs: string,
   maatLines: string,
   reportFolder: string,
@@ -12,7 +12,7 @@ export const mergeFrequenciesWithLines = async (
   try {
     console.log(`Merging frequencies with lines count into "${COMPLEXITY}"`);
 
-    const python = await getPythonExec();
+    const python = getPythonExec();
 
     shell.exec(
       `${python} ${SCRIPT_FOLDER}/merge_comp_freqs.py ${maatFreqs} ${maatLines} > ${COMPLEXITY}`,
