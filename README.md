@@ -1,6 +1,8 @@
 # code-analysis-visualization
 
-This project is a simple code analysis visualization tool. It uses:
+This project is a simple code analysis visualization tool that uses scripts written by [Adam Tornhill](https://github.com/adamtornhill).
+
+It uses:
 
 - java
 - [cloc](https://github.com/AlDanial/cloc)
