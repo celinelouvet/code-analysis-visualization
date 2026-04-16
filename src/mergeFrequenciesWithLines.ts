@@ -1,21 +1,22 @@
-import { $ } from "bun";
+import shell from "shelljs";
 
-import { getPythonExec, SCRIPT_FOLDER } from "./utils";
+import { getPythonExec, SCRIPT_FOLDER } from "./utils/index.ts";
 
 const COMPLEXITY = "complexity.csv";
 
 export const mergeFrequenciesWithLines = async (
   maatFreqs: string,
   maatLines: string,
-  reportFolder: string
+  reportFolder: string,
 ) => {
   try {
     console.log(`Merging frequencies with lines count into "${COMPLEXITY}"`);
 
     const python = await getPythonExec();
 
-    await $`${python} ${SCRIPT_FOLDER}/merge_comp_freqs.py ${maatFreqs} ${maatLines} > ${COMPLEXITY}`.cwd(
-      reportFolder
+    shell.exec(
+      `${python} ${SCRIPT_FOLDER}/merge_comp_freqs.py ${maatFreqs} ${maatLines} > ${COMPLEXITY}`,
+      { cwd: reportFolder },
     );
 
     console.log("\t→ Frequencies merged with lines count\n");

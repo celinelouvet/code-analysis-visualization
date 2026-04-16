@@ -1,16 +1,19 @@
 {
   "name": "code-analysis-visualization",
-  "module": "run.ts",
-  "devDependencies": {
-    "@types/bun": "^1.1.6"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
+  "module": "./src/run.ts",
+  "main": "./src/run.ts",
   "scripts": {
-    "dev": "bun --watch run run.ts --gitFolder='~/Workspace/back-office' --reportFolder='./back-office' --startDate='2022-01-01'",
-    "start": "bun run run.ts --gitFolder='~/Workspace/back-office' --reportFolder='./back-office' --startDate='2022-01-01'",
-    "analyze-bo": "bun --watch run run.ts --gitFolder='~/Workspace/back-office' --reportFolder='./back-office'"
+    "typecheck": "tsc --noEmit",
+    "dev": "node ./src/run.ts --gitFolder='~/Workspace/core-banking' --reportFolder='./core-banking' --startDate='2022-01-01'"
   },
-  "type": "module"
+  "dependencies": {
+    "shelljs": "0.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "25.5.0",
+    "@types/shelljs": "0.10.0",
+    "typescript": "6.0.2"
+  },
+  "type": "module",
+  "packageManager": "pnpm@10.33.0"
 }

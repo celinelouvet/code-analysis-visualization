@@ -1,19 +1,19 @@
-import { $ } from "bun";
+import shell from "shelljs";
 
 import {
   checkCloc,
   getIgnoreDirs,
   hasExistingClocignore,
   MAAT_LINES,
-} from "./utils";
+} from "./utils/index.ts";
 
 export const extractLinesCount = async (
   gitFolder: string,
-  reportFolder: string
+  reportFolder: string,
 ) => {
   try {
     console.log(
-      `Extracting lines count into "${MAAT_LINES}". Can be slow for large repositories`
+      `Extracting lines count into "${MAAT_LINES}". Can be slow for large repositories`,
     );
 
     await checkCloc();
@@ -22,12 +22,14 @@ export const extractLinesCount = async (
     if (exists) {
       const ignoreDirs = await getIgnoreDirs();
 
-      await $`cloc . --by-file --csv --quiet --exclude-dir=${ignoreDirs} --report-file="${reportFolder}/${MAAT_LINES}"`.cwd(
-        gitFolder
+      shell.exec(
+        `cloc . --by-file --csv --quiet --exclude-dir=${ignoreDirs} --report-file="${reportFolder}/${MAAT_LINES}"`,
+        { cwd: gitFolder },
       );
     } else {
-      await $`cloc . --by-file --csv --quiet --report-file="${reportFolder}/${MAAT_LINES}"`.cwd(
-        gitFolder
+      shell.exec(
+        `cloc . --by-file --csv --quiet --report-file="${reportFolder}/${MAAT_LINES}"`,
+        { cwd: gitFolder },
       );
     }
 

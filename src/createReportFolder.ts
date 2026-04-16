@@ -1,5 +1,4 @@
-import { $ } from "bun";
-import { createFolder } from "./utils";
+import { createFolder } from "./utils/index.ts";
 
 export const createReportFolder = async (reportFolder: string) => {
   try {

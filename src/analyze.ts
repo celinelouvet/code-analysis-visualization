@@ -1,12 +1,12 @@
-import { createFrequencyModifications } from "./createFrequencyModifications";
-import { createReport } from "./createReport";
-import { createReportFolder } from "./createReportFolder";
-import { createSummary } from "./createSummary";
-import { extractCoupling } from "./extractCoupling";
-import { extractGitHistory } from "./extractGitHistory";
-import { extractLinesCount } from "./extractLinesCount";
-import { mergeFrequenciesWithLines } from "./mergeFrequenciesWithLines";
-import { readArguments } from "./readArguments";
+import { createFrequencyModifications } from "./createFrequencyModifications.ts";
+import { createReport } from "./createReport.ts";
+import { createReportFolder } from "./createReportFolder.ts";
+import { createSummary } from "./createSummary.ts";
+import { extractCoupling } from "./extractCoupling.ts";
+import { extractGitHistory } from "./extractGitHistory.ts";
+import { extractLinesCount } from "./extractLinesCount.ts";
+import { mergeFrequenciesWithLines } from "./mergeFrequenciesWithLines.ts";
+import { readArguments } from "./readArguments.ts";
 
 export const analyze = async () => {
   const givenArguments = readArguments();

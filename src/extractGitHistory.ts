@@ -1,7 +1,7 @@
-import { $ } from "bun";
+import shell from "shelljs";
 
-import type { Arguments } from "./types";
-import { MAAT_LOG } from "./utils";
+import type { Arguments } from "./types.ts";
+import { MAAT_LOG } from "./utils/index.ts";
 
 export const extractGitHistory = async ({
   gitFolder,
@@ -12,8 +12,9 @@ export const extractGitHistory = async ({
   try {
     console.log(`Extracting git history from folder "${gitFolder}"`);
 
-    await $`git log --pretty=format:'[%h] %an %ad %s' --date=short --numstat --after="${startDate}" --before=${endDate} > "${reportFolder}/${MAAT_LOG}"`.cwd(
-      gitFolder
+    shell.exec(
+      `git log --pretty=format:'[%h] %an %ad %s' --date=short --numstat --after="${startDate}" --before=${endDate} > "${reportFolder}/${MAAT_LOG}"`,
+      { cwd: gitFolder },
     );
     console.log("\t→ Git history extracted\n");
 

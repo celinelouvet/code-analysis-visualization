@@ -1,12 +1,12 @@
 import { parseArgs } from "util";
 
-import type { Arguments } from "./types";
-import { absolutePath } from "./utils";
+import type { Arguments } from "./types.ts";
+import { absolutePath } from "./utils/index.ts";
 
 export const readArguments = () => {
   try {
     const { values } = parseArgs({
-      args: Bun.argv,
+      args: process.argv,
       options: {
         gitFolder: {
           type: "string",
@@ -31,7 +31,7 @@ export const readArguments = () => {
     const reportFolder = buildReportPath(
       startDate,
       endDate,
-      values.reportFolder
+      values.reportFolder,
     );
 
     const absoluteGitFolder = asAbsolutePath(values.gitFolder);
@@ -77,7 +77,7 @@ const printArguments = ({
 const buildReportPath = (
   startDate: string,
   endDate: string,
-  reportFolder?: string
+  reportFolder?: string,
 ) => {
   if (!reportFolder) {
     throw new Error("Report folder is required");

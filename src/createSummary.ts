@@ -1,6 +1,6 @@
-import { $ } from "bun";
+import shell from "shelljs";
 
-import { checkJar, checkJava, MAAT_JAR, MAAT_SUMMARY } from "./utils";
+import { checkJar, checkJava, MAAT_JAR, MAAT_SUMMARY } from "./utils/index.ts";
 
 export const createSummary = async (maatLog: string, reportFolder: string) => {
   try {
@@ -9,8 +9,9 @@ export const createSummary = async (maatLog: string, reportFolder: string) => {
     await checkJava();
     await checkJar(MAAT_JAR);
 
-    await $`java -jar ${MAAT_JAR} -c git -l "${maatLog}" -a summary > "${MAAT_SUMMARY}"`.cwd(
-      reportFolder
+    shell.exec(
+      `java -jar ${MAAT_JAR} -c git -l "${maatLog}" -a summary > "${MAAT_SUMMARY}"`,
+      { cwd: reportFolder },
     );
 
     console.log("\t→ Summary created\n");
