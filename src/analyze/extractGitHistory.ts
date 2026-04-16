@@ -1,9 +1,9 @@
 import shell from "shelljs";
 
-import type { Arguments } from "./types.ts";
-import { MAAT_LOG } from "./utils/index.ts";
+import type { Arguments } from "../types.ts";
+import { MAAT_LOG } from "../utils/index.ts";
 
-export const extractGitHistory = async ({
+export const extractGitHistory = ({
   gitFolder,
   reportFolder,
   startDate,

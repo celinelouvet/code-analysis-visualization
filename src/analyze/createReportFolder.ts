@@ -1,10 +1,10 @@
-import { createFolder } from "./utils/index.ts";
+import { createFolder } from "../utils/index.ts";
 
-export const createReportFolder = async (reportFolder: string) => {
+export const createReportFolder = (reportFolder: string) => {
   try {
     console.log(`Creating report folder "${reportFolder}"`);
 
-    await createFolder(reportFolder);
+    createFolder(reportFolder);
 
     console.log("\t→ Report folder created\n");
   } catch (error) {
