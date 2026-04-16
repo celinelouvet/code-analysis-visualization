@@ -1,10 +1,10 @@
-import { absolutePath } from "./fileUtils";
+import { absolutePath } from "./fileUtils.ts";
 
-export * from "./clocUtils";
-export * from "./fileNames";
-export * from "./fileUtils";
-export * from "./javaUtils";
-export * from "./pythonUtils";
+export * from "./clocUtils.ts";
+export * from "./fileNames.ts";
+export * from "./fileUtils.ts";
+export * from "./javaUtils.ts";
+export * from "./pythonUtils.ts";
 
 export const LIB_FOLDER = absolutePath("./lib");
 export const SCRIPT_FOLDER = absolutePath("./scripts");

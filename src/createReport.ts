@@ -1,21 +1,22 @@
-import { $ } from "bun";
+import shell from "shelljs";
 
-import { getPythonExec, SCRIPT_FOLDER } from "./utils";
+import { getPythonExec, SCRIPT_FOLDER } from "./utils/index.ts";
 
 const REPORT = "report.json";
 
 export const createReport = async (
   maatFreqs: string,
   maatLines: string,
-  reportFolder: string
+  reportFolder: string,
 ) => {
   try {
     console.log("Creating report for visualization");
 
     const python = await getPythonExec();
 
-    await $`${python} ${SCRIPT_FOLDER}/csv_as_enclosure_json.py --structure ${maatLines} --weights ${maatFreqs} --weightcolumn 1 > ${REPORT}`.cwd(
-      reportFolder
+    shell.exec(
+      `${python} ${SCRIPT_FOLDER}/csv_as_enclosure_json.py --structure ${maatLines} --weights ${maatFreqs} --weightcolumn 1 > ${REPORT}`,
+      { cwd: reportFolder },
     );
 
     console.log("\t→ Report created\n");

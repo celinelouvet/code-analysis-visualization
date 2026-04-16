@@ -1,14 +1,14 @@
-import { $ } from "bun";
+import shell from "shelljs";
 
-export const getPythonExec = async () => {
+export const getPythonExec = () => {
   try {
-    const version = await $`python3 --version`.text();
+    const version = shell.exec("python3 --version", { silent: true }).stdout;
     console.log(`\t→ python version: ${version}`);
 
     return "python3";
   } catch (error) {
     try {
-      const version = await $`python --version`.text();
+      const version = shell.exec("python --version", { silent: true }).stdout;
       console.log(`\t→ python version: ${version}`);
 
       return "python";

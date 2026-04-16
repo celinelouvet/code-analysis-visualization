@@ -1,10 +1,10 @@
-import { $ } from "bun";
+import shell from "shelljs";
 
-import { doesFileExist } from "./fileUtils";
+import { doesFileExist } from "./fileUtils.ts";
 
 export const checkJava = async () => {
   try {
-    const versions = await $`java -version`.quiet();
+    const versions = shell.exec("java -version", { silent: true });
     const version = versions.stderr.toString().split("\n")[0];
 
     console.log(`\t→ java version: ${version}\n`);
@@ -13,10 +13,9 @@ export const checkJava = async () => {
   }
 };
 
-export const checkJar = async (jar: string) => {
-  try {
-    await doesFileExist(jar);
-  } catch (error) {
-    throw new Error(`Unable to check ${jar}: ${error}`);
+export const checkJar = (jar: string) => {
+  const exists = doesFileExist(jar);
+  if (!exists) {
+    throw new Error(`File ${jar} does not exist`);
   }
 };

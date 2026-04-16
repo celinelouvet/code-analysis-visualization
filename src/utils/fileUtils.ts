@@ -1,23 +1,17 @@
-import { $, file } from "bun";
 import path from "path";
+import shell from "shelljs";
 
-export const createFolder = async (folderPath: string) =>
-  $`mkdir -p ${folderPath}`;
+export const createFolder = (folderPath: string) =>
+  shell.mkdir("-p", folderPath);
 
-export const doesFileExist = async (filepath: string) => {
-  try {
-    const searchedFile = file(filepath);
-    await searchedFile.exists();
-
-    return true;
-  } catch (error) {
-    return false;
-  }
+export const doesFileExist = (filepath: string) => {
+  const searchedFile = shell.test("-f", filepath);
+  return searchedFile;
 };
 
-export const readFileContent = async (filepath: string) => {
-  const searchedFile = file(filepath);
-  return await searchedFile.text();
+export const readFileContent = (filepath: string) => {
+  const searchedFile = shell.cat(filepath);
+  return searchedFile.stdout;
 };
 
 export const absolutePath = (folderPath: string) => {
@@ -30,7 +24,7 @@ export const absolutePath = (folderPath: string) => {
     return path.resolve(replacedPath);
   } catch (error: unknown) {
     throw new Error(
-      `Couldn't obtain absolute path for path ${folderPath}: ${error}`
+      `Couldn't obtain absolute path for path ${folderPath}: ${error}`,
     );
   }
 };

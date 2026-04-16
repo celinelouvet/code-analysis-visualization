@@ -1,10 +1,10 @@
-import { $ } from "bun";
+import shell from "shelljs";
 
-import { checkJar, checkJava, MAAT_FREQS, MAAT_JAR } from "./utils";
+import { checkJar, checkJava, MAAT_FREQS, MAAT_JAR } from "./utils/index.ts";
 
 export const createFrequencyModifications = async (
   maatLog: string,
-  reportFolder: string
+  reportFolder: string,
 ) => {
   try {
     console.log(`Creating frequency of modifications into "${MAAT_FREQS}"`);
@@ -12,8 +12,9 @@ export const createFrequencyModifications = async (
     await checkJava();
     await checkJar(MAAT_JAR);
 
-    await $`java -jar ${MAAT_JAR} -c git -l ${maatLog} -a revisions > ${MAAT_FREQS}`.cwd(
-      reportFolder
+    shell.exec(
+      `java -jar ${MAAT_JAR} -c git -l ${maatLog} -a revisions > ${MAAT_FREQS}`,
+      { cwd: reportFolder },
     );
     console.log("\t→ Frequency of modifications created\n");
 

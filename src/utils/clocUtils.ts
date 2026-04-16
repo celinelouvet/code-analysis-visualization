@@ -1,24 +1,24 @@
-import { $, file } from "bun";
+import shell from "shelljs";
 
-import { CLOC_IGNORE_FILE } from "./fileNames";
-import { doesFileExist, readFileContent } from "./fileUtils";
+import { CLOC_IGNORE_FILE } from "./fileNames.ts";
+import { doesFileExist, readFileContent } from "./fileUtils.ts";
 
-export const checkCloc = async () => {
+export const checkCloc = () => {
   try {
-    const version = await $`cloc --version`.text();
+    const version = shell.exec("cloc --version", { silent: true }).stdout;
+
     console.log(`\t→ cloc version: ${version}`);
   } catch (error) {
     throw new Error(
-      `cloc is not installed. Please install it "https://github.com/AlDanial/cloc/releases/latest"`
+      `cloc is not installed. Please install it "https://github.com/AlDanial/cloc/releases/latest"`,
     );
   }
 };
 
-export const hasExistingClocignore = async () =>
-  doesFileExist(CLOC_IGNORE_FILE);
+export const hasExistingClocignore = () => doesFileExist(CLOC_IGNORE_FILE);
 
-export const getIgnoreDirs = async () => {
-  const content = await readFileContent(CLOC_IGNORE_FILE);
+export const getIgnoreDirs = () => {
+  const content = readFileContent(CLOC_IGNORE_FILE);
 
   return content
     .split("\n")
