@@ -4,13 +4,17 @@
   "main": "./src/run.ts",
   "scripts": {
     "typecheck": "tsc --noEmit",
+    "analyze": "node ./src/run.ts --gitFolder='~/Workspace/core-banking' --reportFolder='./core-banking' --startDate='2024-01-01'",
+    "serve": "node ./src/serve.ts",
     "dev": "node ./src/run.ts --gitFolder='~/Workspace/core-banking' --reportFolder='./core-banking' --startDate='2024-01-01'"
   },
   "dependencies": {
+    "serve-handler": "6.1.7",
     "shelljs": "0.10.0"
   },
   "devDependencies": {
     "@types/node": "25.5.0",
+    "@types/serve-handler": "6.1.4",
     "@types/shelljs": "0.10.0",
     "typescript": "6.0.2"
   },
